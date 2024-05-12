@@ -8,7 +8,7 @@ public sealed class Person : IHaveId<int>
 	private readonly List<Address> _addresses = [];
 
 #pragma warning disable CS8618
-	private Person() { } // Required by Entity Framework.
+	private Person() { } /* Required by Entity Framework. */
 #pragma warning restore CS8618
 
 	public static Person Create(string firstName, string lastName)

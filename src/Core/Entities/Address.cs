@@ -21,7 +21,7 @@ public abstract class Address
 			PostalCode = postalCode,
 			City = city,
 			Country = country,
-			IsCurrent = isCurrent
+			IsCurrent = isCurrent,
 		};
 	}
 

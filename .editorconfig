@@ -1586,7 +1586,7 @@ dotnet_diagnostic.CA2261.severity = warning
 # this and Me preferences
 dotnet_diagnostic.IDE0003.severity = suggestion
 dotnet_diagnostic.IDE0009.severity = suggestion
-dotnet_style_qualification_for_field = true:suggestion
+dotnet_style_qualification_for_field = false:suggestion
 
 # Use 'System.HashCode.Combine' ****
 dotnet_diagnostic.IDE0070.severity = warning
