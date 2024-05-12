@@ -1,43 +1,42 @@
-﻿namespace EfCoreDto.Core.Entities;
+namespace EfCoreDto.Core.Entities;
 
-public class Vehicle
+public sealed class Vehicle
 {
-    private List<Owner> _owners = [];
+	private readonly List<Owner> _owners = [];
 
-#pragma warning disable CS8618 // Required by Entity Framework
-    private Vehicle() { }
+#pragma warning disable CS8618
+	private Vehicle() { } // Required by Entity Framework.
 #pragma warning restore CS8618
 
-    private Vehicle(VIN vin)
-    {
-        VIN = vin;
-    }
+	private Vehicle(VIN vin) => this.VIN = vin;
 
-    public static Vehicle Create(VIN vin, Person owner)
-    {
-        var vehicle = new Vehicle(vin);
-        vehicle._owners.Add(Owner.Create(owner));
-        return vehicle;
-    }
+	public static Vehicle Create(VIN vin, Person owner)
+	{
+		var vehicle = new Vehicle(vin);
+		vehicle._owners.Add(Owner.Create(owner));
+		return vehicle;
+	}
 
-    public Owner SetOwner(Person newOwner)
-    {
-        if (CurrentOwner != null)
-        {
-            if (((IHaveId<int>)newOwner).Id == CurrentOwner.Id)
-            {
-                throw new DuplicateOwnerException();
-            }
-            CurrentOwner!.EndOwnership();
-        }
+	public Owner SetOwner(Person newOwner)
+	{
+		ArgumentNullException.ThrowIfNull(newOwner);
 
-        var owner = Owner.Create(newOwner);
-        _owners.Add(owner);
-        return owner;
-    }
+		if (this.CurrentOwner != null)
+		{
+			if (((IHaveId<int>)newOwner).Id == this.CurrentOwner.Id)
+			{
+				throw new DuplicateOwnerException();
+			}
+			this.CurrentOwner!.EndOwnership();
+		}
 
-    public VIN VIN { get; private set; }
+		var owner = Owner.Create(newOwner);
+		_owners.Add(owner);
+		return owner;
+	}
 
-    public Owner? CurrentOwner => _owners.FirstOrDefault(x => x.To == null);
-    public Owner[] PreviousOwners => _owners.Where(x => x.To != null).ToArray();
+	public VIN VIN { get; }
+
+	public Owner? CurrentOwner => _owners.Find(x => x.To == null);
+	public IReadOnlyCollection<Owner> PreviousOwners => [.. _owners.Where(x => x.To != null)];
 }

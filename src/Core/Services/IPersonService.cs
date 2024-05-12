@@ -1,16 +1,16 @@
-﻿namespace EfCoreDto.Core.Services;
+namespace EfCoreDto.Core.Services;
 
 public interface IPersonService
 {
-    Task<Result<PersonDTO>> AddPerson(string firstName, string lastName);
-    Task<Result<PersonDTO>> GetPersonById(int id);
-    Task<Result<AddressDTO[]>> GetPersonsAddresses(int personId);
-    Task<Result<AddressDTO>> SetPersonsAddress(
-        int personId,
-        AddressType type,
-        string addressLine1,
-        string addressLine2,
-        string postalCode,
-        string city,
-        string country);
+	Task<Result<PersonDto>> AddPersonAsync(string firstName, string lastName);
+	Task<Result<PersonDto>> GetPersonByIdAsync(int id);
+	Task<Result<AddressDto[]>> GetPersonsAddressesAsync(int personId);
+	Task<Result<AddressDto>> SetPersonsAddressAsync(
+		int personId,
+		AddressType type,
+		string addressLine1,
+		string addressLine2,
+		string postalCode,
+		string city,
+		string country);
 }

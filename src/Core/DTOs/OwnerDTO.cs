@@ -1,3 +1,3 @@
-﻿namespace EfCoreDto.Core.DTOs;
+namespace EfCoreDto.Core.DTOs;
 
-public record OwnerDTO(int Id, NameDTO Name, DateTime From, DateTime? To);
+public record OwnerDto(int Id, NameDto Name, DateTime From, DateTime? To);

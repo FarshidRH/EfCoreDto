@@ -1,7 +1,7 @@
-﻿namespace EfCoreDto.Core.Eums;
+namespace EfCoreDto.Core.Eums;
 
 public enum AddressType
 {
-    Delivery,
-    Invoice
+	Delivery,
+	Invoice,
 }

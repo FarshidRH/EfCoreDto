@@ -1,7 +1,4 @@
 <Project>
-  <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
@@ -12,6 +9,15 @@
     <PackageVersion Include="xunit" Version="2.8.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
-    <!-- Miscellaneous -->
-    <PackageVersion Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4" /> </ItemGroup>
+		<!-- ThirdParty Analyzers -->
+		<PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" />
+		<PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.10.48" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4" />
+		<PackageVersion Include="Roslynator.Analyzers" Version="4.12.3" />
+		<PackageVersion Include="Roslynator.CodeAnalysis.Analyzers" Version="4.12.3" />
+		<PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.12.3" />
+		<PackageVersion Include="SonarAnalyzer.CSharp" Version="9.25.0.90414" />
+		<PackageVersion Include="Meziantou.Analyzer" Version="2.0.150" />
+		<PackageVersion Include="SecurityCodeScan.VS2019" Version="5.6.7" />
+	</ItemGroup>
 </Project>

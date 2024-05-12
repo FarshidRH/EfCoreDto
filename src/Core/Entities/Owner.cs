@@ -1,24 +1,21 @@
-﻿namespace EfCoreDto.Core.Entities;
+namespace EfCoreDto.Core.Entities;
 
-public class Owner
+public sealed class Owner
 {
-    private Person _person;
+	private readonly Person _person;
 
-#pragma warning disable CS8618 // Required by Entity Framework
-    private Owner() { }
+#pragma warning disable CS8618
+	private Owner() { } // Required by Entity Framework.
 #pragma warning restore CS8618
 
-    private Owner(Person person)
-    {
-        _person = person;
-    }
+	private Owner(Person person) => _person = person;
 
-    public static Owner Create(Person person) => new(person);
+	public static Owner Create(Person person) => new(person);
 
-    public void EndOwnership() => To = DateTime.Today;
+	public void EndOwnership() => this.To = DateTime.Today;
 
-    public int Id => ((IHaveId<int>)_person).Id;
-    public Name Name => _person.Name;
-    public DateTime From { get; private set; } = DateTime.Today;
-    public DateTime? To { get; private set; }
+	public int Id => ((IHaveId<int>)_person).Id;
+	public Name Name => _person.Name;
+	public DateTime From { get; } = DateTime.Today;
+	public DateTime? To { get; private set; }
 }

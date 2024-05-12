@@ -1,16 +1,16 @@
-﻿namespace EfCoreDto.Core.ValueObjects;
+namespace EfCoreDto.Core.ValueObjects;
 
 public record Name
 {
-    public Name(string firstName, string lastName)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(firstName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(lastName);
+	public Name(string firstName, string lastName)
+	{
+		ArgumentException.ThrowIfNullOrWhiteSpace(firstName);
+		ArgumentException.ThrowIfNullOrWhiteSpace(lastName);
 
-        FirstName = firstName;
-        LastName = lastName;
-    }
+		this.FirstName = firstName;
+		this.LastName = lastName;
+	}
 
-    public string FirstName { get; }
-    public string LastName { get; }
+	public string FirstName { get; }
+	public string LastName { get; }
 }

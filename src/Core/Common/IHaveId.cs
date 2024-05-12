@@ -1,6 +1,6 @@
-﻿namespace EfCoreDto.Core.Common;
+namespace EfCoreDto.Core.Common;
 
-public interface IHaveId<T>
+public interface IHaveId<out T>
 {
-    T Id { get; }
+	T Id { get; }
 }

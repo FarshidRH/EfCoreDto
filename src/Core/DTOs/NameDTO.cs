@@ -1,3 +1,3 @@
-﻿namespace EfCoreDto.Core.DTOs;
+namespace EfCoreDto.Core.DTOs;
 
-public record NameDTO(string FirstName, string LastName);
+public record NameDto(string FirstName, string LastName);
