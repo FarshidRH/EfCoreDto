@@ -2,14 +2,10 @@ namespace EfCoreDto.Core.Entities;
 
 public sealed class Person : IHaveId<int>
 {
-#pragma warning disable CA1805 // Do not initialize unnecessarily
 	private readonly int _id = default;
-#pragma warning restore CA1805 // Do not initialize unnecessarily
 	private readonly List<Address> _addresses = [];
 
-#pragma warning disable CS8618
 	private Person() { } /* Required by Entity Framework. */
-#pragma warning restore CS8618
 
 	public static Person Create(string firstName, string lastName)
 		=> new() { Name = new(firstName, lastName) };

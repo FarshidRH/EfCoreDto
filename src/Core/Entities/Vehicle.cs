@@ -4,9 +4,7 @@ public sealed class Vehicle
 {
 	private readonly List<Owner> _owners = [];
 
-#pragma warning disable CS8618
 	private Vehicle() { } /* Required by Entity Framework. */
-#pragma warning restore CS8618
 
 	private Vehicle(VIN vin) => this.VIN = vin;
 

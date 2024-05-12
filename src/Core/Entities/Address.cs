@@ -35,8 +35,6 @@ public abstract class Address
 	public bool IsCurrent { get; private set; }
 }
 
-#pragma warning disable MA0048 // File name must match type name
 public class DeliveryAddress : Address;
 
 public class InvoiceAddress : Address;
-#pragma warning restore MA0048 // File name must match type name

@@ -4,9 +4,7 @@ public sealed class Owner
 {
 	private readonly Person _person;
 
-#pragma warning disable CS8618
 	private Owner() { } /* Required by Entity Framework. */
-#pragma warning restore CS8618
 
 	private Owner(Person person) => _person = person;
 
