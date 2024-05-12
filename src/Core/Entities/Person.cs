@@ -5,7 +5,8 @@ public sealed class Person : IHaveId<int>
 	private readonly int _id = default;
 	private readonly List<Address> _addresses = [];
 
-	private Person() { } /* Required by Entity Framework. */
+	// Required by Entity Framework.
+	private Person() { }
 
 	public static Person Create(string firstName, string lastName)
 		=> new() { Name = new(firstName, lastName) };
