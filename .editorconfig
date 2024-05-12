@@ -1845,7 +1845,7 @@ dotnet_diagnostic.IDE0073.severity = warning
 file_header_template = unset
 
 # Fix formatting
-dotnet_diagnostic.IDE0055.severity = warning
+dotnet_diagnostic.IDE0055.severity = suggestion
 
 # Organize usings
 dotnet_separate_import_directive_groups = false
