@@ -1,4 +1,4 @@
-namespace EfCoreDto.Core.Entities;
+﻿namespace EfCoreDto.Core.Entities;
 
 public sealed class Vehicle
 {
