@@ -4,7 +4,7 @@ public sealed class Owner
 {
 	private readonly Person _person;
 
-	private Owner() { } /* Required by Entity Framework. */
+	private Owner() { }
 
 	private Owner(Person person) => _person = person;
 

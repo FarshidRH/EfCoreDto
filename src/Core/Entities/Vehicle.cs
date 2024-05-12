@@ -4,7 +4,7 @@ public sealed class Vehicle
 {
 	private readonly List<Owner> _owners = [];
 
-	private Vehicle() { } /* Required by Entity Framework. */
+	private Vehicle() { }
 
 	private Vehicle(VIN vin) => this.VIN = vin;
 
