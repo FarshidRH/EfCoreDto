@@ -1,8 +1,8 @@
 namespace EfCoreDto.Core.Extensions;
 
-public static class DtoExtenstion
+public static class DTOExtenstion
 {
-	public static VehicleDto ToModel(this Vehicle vehicle)
+	public static VehicleDTO ToModel(this Vehicle vehicle)
 	{
 		ArgumentNullException.ThrowIfNull(vehicle);
 
@@ -11,14 +11,14 @@ public static class DtoExtenstion
 				vehicle.PreviousOwners.OrderBy(x => x.To).Select(x => x.ToModel()).ToArray());
 	}
 
-	public static OwnerDto ToModel(this Owner owner)
+	public static OwnerDTO ToModel(this Owner owner)
 	{
 		ArgumentNullException.ThrowIfNull(owner);
 
 		return new(owner.Id, owner.Name.ToModel(), owner.From, owner.To);
 	}
 
-	public static PersonDto ToModel(this Person person)
+	public static PersonDTO ToModel(this Person person)
 	{
 		ArgumentNullException.ThrowIfNull(person);
 
@@ -27,7 +27,7 @@ public static class DtoExtenstion
 				person.InvoiceAddress?.ToModel());
 	}
 
-	public static AddressDto ToModel(this Address address)
+	public static AddressDTO ToModel(this Address address)
 	{
 		ArgumentNullException.ThrowIfNull(address);
 
@@ -38,7 +38,7 @@ public static class DtoExtenstion
 				address.City, address.Country, address.IsCurrent);
 	}
 
-	public static NameDto ToModel(this Name name)
+	public static NameDTO ToModel(this Name name)
 	{
 		ArgumentNullException.ThrowIfNull(name);
 

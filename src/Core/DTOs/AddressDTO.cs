@@ -1,6 +1,6 @@
 namespace EfCoreDto.Core.DTOs;
 
-public record AddressDto(
+public record AddressDTO(
 	AddressType Type,
 	string AddressLine1,
 	string? AddressLine2,

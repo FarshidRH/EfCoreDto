@@ -1,3 +1,3 @@
 namespace EfCoreDto.Core.DTOs;
 
-public record VehicleDto(string VIN, OwnerDto? Owner, OwnerDto[] PreviousOwners);
+public record VehicleDTO(string VIN, OwnerDTO? Owner, OwnerDTO[] PreviousOwners);
