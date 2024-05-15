@@ -603,7 +603,7 @@ dotnet_diagnostic.CA1806.severity = error
 dotnet_diagnostic.CA1810.severity = suggestion
 
 # Avoid uninstantiated internal classes
-dotnet_diagnostic.CA1812.severity = warning
+dotnet_diagnostic.CA1812.severity = suggestion
 
 # Avoid unsealed attributes ****!
 dotnet_diagnostic.CA1813.severity = suggestion
@@ -715,7 +715,7 @@ dotnet_diagnostic.CA1850.severity = error
 dotnet_diagnostic.CA1851.severity = warning
 
 # Seal internal types ***!
-dotnet_diagnostic.CA1852.severity = error
+dotnet_diagnostic.CA1852.severity = suggestion
 
 # Unnecessary call to 'Dictionary.ContainsKey(key)' ****!
 dotnet_diagnostic.CA1853.severity = error
@@ -1998,7 +1998,7 @@ dotnet_diagnostic.CA1060.severity = warning
 dotnet_diagnostic.CA1061.severity = warning
 
 # Validate arguments of public methods
-dotnet_diagnostic.CA1062.severity = error
+dotnet_diagnostic.CA1062.severity = suggestion
 dotnet_code_quality.CA1062.api_surface = public, protected
 
 # Implement IDisposable correctly
@@ -2320,7 +2320,7 @@ csharp_new_line_between_query_expression_clauses = true
 
 # C# Unnecessary code rules
 csharp_style_unused_value_assignment_preference = discard_variable:suggestion
-csharp_style_unused_value_expression_statement_preference = discard_variable:suggestion
+csharp_style_unused_value_expression_statement_preference = discard_variable:silent
 
 # Simplify name
 dotnet_diagnostic.IDE0001.severity = warning
@@ -2344,7 +2344,7 @@ dotnet_diagnostic.IDE0051.severity = warning
 dotnet_diagnostic.IDE0052.severity = error
 
 # Remove unnecessary expression value
-dotnet_diagnostic.IDE0058.severity = warning
+dotnet_diagnostic.IDE0058.severity = silent
 
 # Remove unnecessary value assignment
 dotnet_diagnostic.IDE0059.severity = error
@@ -2392,9 +2392,9 @@ csharp_using_directive_placement = outside_namespace:warning
 csharp_style_expression_bodied_accessors = true:warning
 csharp_style_expression_bodied_constructors = true:warning
 csharp_style_expression_bodied_indexers = true:warning
-csharp_style_expression_bodied_lambdas = true:warning
+csharp_style_expression_bodied_lambdas = true:suggestion
 csharp_style_expression_bodied_local_functions = true:warning
-csharp_style_expression_bodied_methods = true:warning
+csharp_style_expression_bodied_methods = true:suggestion
 csharp_style_expression_bodied_operators = true:warning
 csharp_style_expression_bodied_properties = true:warning
 
@@ -2449,7 +2449,7 @@ csharp_indent_switch_labels = true
 
 # Namespace options
 # https://docs.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/formatting-rules#namespace-options
-csharp_style_namespace_declarations = file_scoped:warning
+csharp_style_namespace_declarations = file_scoped:suggestion
 
 #Wrapping preferences
 csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = true:silent
@@ -2479,6 +2479,9 @@ dotnet_diagnostic.S3459.severity = suggestion
 
 # S101: Types should be named in PascalCase
 dotnet_diagnostic.S101.severity = suggestion
+
+# S125: Sections of code should not be commented out
+dotnet_diagnostic.S125.severity = suggestion
 
 # [src/{VisualStudio}/**/*.{cs,vb}]
 visual_basic_style_prefer_simplified_object_creation = all : suggestion

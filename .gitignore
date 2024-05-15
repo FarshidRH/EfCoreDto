@@ -482,3 +482,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Migration files
+/src/Infrastructure/Data/migrations.exe
+/src/Infrastructure/Data/migrations.sql
