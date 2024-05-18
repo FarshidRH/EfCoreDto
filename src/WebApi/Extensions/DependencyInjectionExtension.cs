@@ -4,10 +4,10 @@ namespace EfCoreDto.WebApi.Extensions;
 
 public static class DependencyInjectionExtension
 {
-	public static void AddWebAppServices(this IServiceCollection services)
+	public static void AddWebAppServices(this IHostApplicationBuilder builder)
 	{
-		services.AddEndpointsApiExplorer();
-		services.AddSwaggerGen(opt =>
+		builder.Services.AddEndpointsApiExplorer();
+		builder.Services.AddSwaggerGen(opt =>
 		{
 			opt.SwaggerDoc("v1", new OpenApiInfo
 			{
