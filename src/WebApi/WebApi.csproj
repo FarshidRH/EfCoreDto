@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>EfCoreDto.WebApi</RootNamespace>
+    <UserSecretsId>ab13f92b-a5f2-4dae-b3de-551e556478dd</UserSecretsId>
   </PropertyGroup>
     
   <ItemGroup>
