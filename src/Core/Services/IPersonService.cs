@@ -7,7 +7,7 @@ public interface IPersonService
 	Task<Result<AddressDTO[]>> GetPersonsAddressesAsync(int personId);
 	Task<Result<AddressDTO>> SetPersonsAddressAsync(
 		int personId,
-		AddressType type,
+		AddressType addressType,
 		string addressLine1,
 		string addressLine2,
 		string postalCode,

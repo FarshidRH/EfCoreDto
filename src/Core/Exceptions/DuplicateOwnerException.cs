@@ -3,13 +3,14 @@ namespace EfCoreDto.Core.Exceptions;
 public class DuplicateOwnerException : Exception
 {
 	public DuplicateOwnerException()
+		: this(OwnerErrors.DuplicateOwner)
 	{ }
 
-	public DuplicateOwnerException(string? message)
-		: base(message)
+	private DuplicateOwnerException(string? message)
+		: this(message, null)
 	{ }
 
-	public DuplicateOwnerException(string? message, Exception? innerException)
+	private DuplicateOwnerException(string? message, Exception? innerException)
 		: base(message, innerException)
 	{ }
 }

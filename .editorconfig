@@ -1932,7 +1932,7 @@ dotnet_diagnostic.CA1028.severity = error
 dotnet_diagnostic.CA1030.severity = suggestion
 
 # Do not catch general exception types
-dotnet_diagnostic.CA1031.severity = error
+dotnet_diagnostic.CA1031.severity = suggestion
 
 # Implement standard exception constructors
 dotnet_diagnostic.CA1032.severity = suggestion
@@ -2390,7 +2390,7 @@ csharp_using_directive_placement = outside_namespace:warning
 
 # Expression-Bodied members
 csharp_style_expression_bodied_accessors = true:warning
-csharp_style_expression_bodied_constructors = true:warning
+csharp_style_expression_bodied_constructors = true:suggestion
 csharp_style_expression_bodied_indexers = true:warning
 csharp_style_expression_bodied_lambdas = true:suggestion
 csharp_style_expression_bodied_local_functions = true:warning

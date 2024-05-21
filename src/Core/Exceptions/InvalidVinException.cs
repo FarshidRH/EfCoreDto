@@ -3,13 +3,14 @@ namespace EfCoreDto.Core.Exceptions;
 public class InvalidVinException : Exception
 {
 	public InvalidVinException()
+		: this(VehicleErrors.InvalidVin)
 	{ }
 
-	public InvalidVinException(string? message)
-		: base(message)
+	private InvalidVinException(string? message)
+		: this(message, null)
 	{ }
 
-	public InvalidVinException(string? message, Exception? innerException)
+	private InvalidVinException(string? message, Exception? innerException)
 		: base(message, innerException)
 	{ }
 }
