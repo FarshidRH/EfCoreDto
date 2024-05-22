@@ -16,5 +16,7 @@ public static class DependencyInjectionExtension
 				Version = "1.0",
 			});
 		});
+
+		builder.Services.AddEndpoints(typeof(Program).Assembly);
 	}
 }

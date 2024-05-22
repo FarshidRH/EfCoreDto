@@ -19,6 +19,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/hi", () => TypedResults.Ok("Hello World!"));
+app.MapEndpoints();
 
 await app.RunAsync();

@@ -1,6 +1,6 @@
 namespace EfCoreDto.Infrastructure.Services;
 
-internal class PersonSevice(AppDbContext dbContext) : IPersonService
+internal class PersonService(AppDbContext dbContext) : IPersonService
 {
 	private readonly AppDbContext _dbContext = dbContext;
 
