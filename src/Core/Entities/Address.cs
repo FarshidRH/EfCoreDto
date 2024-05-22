@@ -35,6 +35,6 @@ public abstract class Address
 	public bool IsCurrent { get; private set; }
 }
 
-public class DeliveryAddress : Address;
+public sealed class DeliveryAddress : Address;
 
-public class InvoiceAddress : Address;
+public sealed class InvoiceAddress : Address;

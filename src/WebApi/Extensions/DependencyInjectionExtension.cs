@@ -1,6 +1,6 @@
 namespace EfCoreDto.WebApi.Extensions;
 
-public static class DependencyInjectionExtension
+internal static class DependencyInjectionExtension
 {
 	public static void AddWebAppServices(this IHostApplicationBuilder builder)
 	{

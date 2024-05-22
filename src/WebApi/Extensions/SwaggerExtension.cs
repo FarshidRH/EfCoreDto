@@ -28,8 +28,7 @@ internal static class SwaggerExtension
 			app.UseSwagger();
 			app.UseSwaggerUI(opt =>
 			{
-				opt.SwaggerEndpoint("v1/swagger.json", "EfCoreDto API v1");
-				opt.RoutePrefix = "swagger";
+				opt.SwaggerEndpoint("/swagger/v1/swagger.json", "EfCoreDto API v1");
 			});
 		}
 

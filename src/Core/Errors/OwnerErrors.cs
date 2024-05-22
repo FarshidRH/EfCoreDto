@@ -2,7 +2,7 @@ namespace EfCoreDto.Core.Errors;
 
 public static class OwnerErrors
 {
-	public static string OwnerNotFound => "Owner not found.";
+	public const string OwnerNotFound = "Owner not found.";
 
-	public static string DuplicateOwner => "Duplicate Owner.";
+	public const string DuplicateOwner = "Duplicate Owner.";
 }

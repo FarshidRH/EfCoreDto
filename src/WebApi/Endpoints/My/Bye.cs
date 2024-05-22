@@ -1,6 +1,6 @@
 namespace EfCoreDto.WebApi.Endpoints.My;
 
-internal class Bye : IEndpoint
+internal sealed class Bye : IEndpoint
 {
 	public void MapEndpoint(IEndpointRouteBuilder endpointRouteBuilder)
 	{
