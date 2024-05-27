@@ -1,0 +1,41 @@
+@HostAddress = https://localhost:7073
+@Vehicle_Vin = 4Y1SL65848Z411439
+@Vehicle_Id = 1
+@Person_Id = 1
+
+# Get vehicle by vin.
+GET {{HostAddress}}/vehicle/{{Vehicle_Vin}}
+
+###
+
+# Invalid vin.
+GET {{HostAddress}}/vehicle/_0123456789_
+
+###
+
+# Get vehicle by id.
+GET {{HostAddress}}/vehicle/{{Vehicle_Id}}
+
+###
+
+# Add new vehicle.
+POST {{HostAddress}}/vehicle
+Content-Type: application/json
+
+{
+  "vin": "{{Vehicle_Vin}}",
+  "personId": {{Person_Id}}
+}
+
+###
+
+# Get current owner.
+GET {{HostAddress}}/vehicle/{{Vehicle_Vin}}/owner
+
+###
+
+# Set current owner.
+POST {{HostAddress}}/vehicle/{{Vehicle_Vin}}/owner/{{Person_Id}}
+Content-Type: application/json
+
+###

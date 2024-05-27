@@ -1,7 +1,7 @@
 namespace EfCoreDto.Core.DTOs;
 
 public record AddressDTO(
-	AddressType Type,
+	string Type,
 	string AddressLine1,
 	string? AddressLine2,
 	string PostalCode,

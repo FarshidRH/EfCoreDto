@@ -10,8 +10,8 @@ internal static class EndpointExtension
 	{
 		ServiceDescriptor[] serviceDescriptors = assembly
 			.DefinedTypes
-			.Where(type => type is { IsAbstract: false, IsInterface: false } && type.IsAssignableTo(typeof(IEndpoint)))
-			.Select(type => ServiceDescriptor.Transient(typeof(IEndpoint), type))
+			.Where(type => type is { IsAbstract: false, IsInterface: false } && type.IsAssignableTo(typeof(IEndpointBase)))
+			.Select(type => ServiceDescriptor.Transient(typeof(IEndpointBase), type))
 			.ToArray();
 
 		services.TryAddEnumerable(serviceDescriptors);
@@ -21,7 +21,7 @@ internal static class EndpointExtension
 
 	public static IApplicationBuilder MapEndpoints(this WebApplication app)
 	{
-		foreach (IEndpoint endpoint in app.Services.GetRequiredService<IEnumerable<IEndpoint>>())
+		foreach (IEndpointBase endpoint in app.Services.GetRequiredService<IEnumerable<IEndpointBase>>())
 		{
 			endpoint.MapEndpoint(app);
 		}

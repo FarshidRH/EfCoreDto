@@ -1,5 +1,0 @@
-@WebApi_HostAddress = https://localhost:7073
-
-GET {{WebApi_HostAddress}}/hi
-
-###

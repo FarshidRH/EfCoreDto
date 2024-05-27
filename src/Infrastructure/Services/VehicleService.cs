@@ -1,6 +1,6 @@
 namespace EfCoreDto.Infrastructure.Services;
 
-internal sealed class VehicleService(AppDbContext dbContext) : IVehicleService
+public sealed class VehicleService(AppDbContext dbContext) : IVehicleService
 {
 	private readonly AppDbContext _dbContext = dbContext;
 

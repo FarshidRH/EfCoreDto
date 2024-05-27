@@ -1,0 +1,43 @@
+@HostAddress = https://localhost:7073
+@Person_Id = 1
+
+# Get person.
+GET {{HostAddress}}/person/{{Person_Id}}
+
+###
+
+# Person not found.
+GET {{HostAddress}}/person/100
+
+###
+
+# Add new perosn.
+POST {{HostAddress}}/person
+Content-Type: application/json
+
+{
+	"firstName": "Farshid",
+	"lastName": "Rezaei"
+}
+
+###
+
+# Get all addresses of person
+GET {{HostAddress}}/person/{{Person_Id}}/address
+
+###
+
+# Add new address for person
+POST {{HostAddress}}/person/{{Person_Id}}/address
+Content-Type: application/json
+
+{
+  "type": 0,
+  "addressLine1": "street1",
+  "addressLine2": "",
+  "postalCode": "987654321",
+  "city": "city1",
+  "country": "country1"
+}
+
+###

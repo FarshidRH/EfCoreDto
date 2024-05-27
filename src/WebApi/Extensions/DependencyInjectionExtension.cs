@@ -2,7 +2,7 @@ namespace EfCoreDto.WebApi.Extensions;
 
 internal static class DependencyInjectionExtension
 {
-	public static void AddWebAppServices(this IHostApplicationBuilder builder)
+	public static void AddWebApiServices(this IHostApplicationBuilder builder)
 	{
 		builder.Services.AddSwaggerTools();
 

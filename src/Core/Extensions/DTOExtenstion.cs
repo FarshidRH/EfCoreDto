@@ -31,9 +31,7 @@ public static class DTOExtenstion
 	{
 		ArgumentNullException.ThrowIfNull(address);
 
-		var addressType = address.GetType().Name.Replace("Address", "", StringComparison.Ordinal);
-
-		return new(Enum.Parse<AddressType>(addressType),
+		return new(address.GetType().Name.Replace("Address", "", StringComparison.Ordinal),
 				address.AddressLine1, address.AddressLine2, address.PostalCode,
 				address.City, address.Country, address.IsCurrent);
 	}
