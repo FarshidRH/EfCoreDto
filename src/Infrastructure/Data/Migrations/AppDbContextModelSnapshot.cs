@@ -18,7 +18,7 @@ namespace EfCoreDto.Infrastructure.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -97,12 +97,7 @@ namespace EfCoreDto.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("to_date");
 
-                    b.Property<int?>("Vehicleid")
-                        .HasColumnType("int");
-
                     b.HasKey("vehicle_id", "person_id");
-
-                    b.HasIndex("Vehicleid");
 
                     b.HasIndex("person_id");
 
@@ -184,10 +179,6 @@ namespace EfCoreDto.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EfCoreDto.Core.Entities.Owner", b =>
                 {
-                    b.HasOne("EfCoreDto.Core.Entities.Vehicle", null)
-                        .WithMany("PreviousOwners")
-                        .HasForeignKey("Vehicleid");
-
                     b.HasOne("EfCoreDto.Core.Entities.Person", "_person")
                         .WithMany()
                         .HasForeignKey("person_id")
@@ -210,8 +201,6 @@ namespace EfCoreDto.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EfCoreDto.Core.Entities.Vehicle", b =>
                 {
-                    b.Navigation("PreviousOwners");
-
                     b.Navigation("_owners");
                 });
 #pragma warning restore 612, 618

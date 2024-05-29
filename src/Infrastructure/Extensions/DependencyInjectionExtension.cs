@@ -19,21 +19,23 @@ public static class DependencyInjectionExtension
 	private static DbContextOptionsBuilder ConfigureDbContextOptions(
 		this DbContextOptionsBuilder dbContextOptions, IHostApplicationBuilder host)
 	{
-		var connectionString = host.Configuration.GetConnectionString("SqlServer");
-		dbContextOptions.UseSqlServer(connectionString, sqlServerOptionsBuilder =>
-		{
-			sqlServerOptionsBuilder.EnableRetryOnFailure();
-		});
+		dbContextOptions.UseSqlServer(
+			connectionString: host.Configuration.GetConnectionString("SqlServer"),
+			sqlServerOptionsBuilder => sqlServerOptionsBuilder.EnableRetryOnFailure());
 
 		if (host.Environment.IsDevelopment())
 		{
 			dbContextOptions.EnableDetailedErrors();
 			dbContextOptions.EnableSensitiveDataLogging();
-			dbContextOptions.ConfigureWarnings(warningsConfigurationBuilder =>
+
+			dbContextOptions.ConfigureWarnings(warningsConfiguration =>
 			{
-				warningsConfigurationBuilder.Log(
+				warningsConfiguration.Log(
 					CoreEventId.FirstWithoutOrderByAndFilterWarning,
 					CoreEventId.RowLimitingOperationWithoutOrderByWarning);
+
+				warningsConfiguration.Ignore(
+					CoreEventId.SensitiveDataLoggingEnabledWarning);
 			});
 		}
 

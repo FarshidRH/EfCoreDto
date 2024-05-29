@@ -8,17 +8,14 @@ internal class OwnerConfiguration : IEntityTypeConfiguration<Owner>
 
 		builder.Property<int>("vehicle_id");
 
-		builder.HasOne<Person>("_person")
-			.WithMany()
-			.HasForeignKey("person_id");
-
+		builder.HasOne<Person>("_person").WithMany().HasForeignKey("person_id");
 		builder.Navigation("_person").AutoInclude();
 
-		builder.Property(x => x.From)
-			.HasColumnName("from_date");
+		builder.Property(x => x.From).HasColumnName("from_date");
+		builder.Property(x => x.To).HasColumnName("to_date");
 
-		builder.Property(x => x.To)
-			.HasColumnName("to_date");
+		builder.Ignore(x => x.Id);
+		builder.Ignore(x => x.Name);
 
 		builder.HasKey("vehicle_id", "person_id");
 	}

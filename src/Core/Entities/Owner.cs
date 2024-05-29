@@ -14,6 +14,7 @@ public sealed class Owner
 
 	public int Id => ((IHaveId<int>)_person).Id;
 	public Name Name => _person.Name;
+
 	public DateTime From { get; } = DateTime.Today;
 	public DateTime? To { get; private set; }
 }

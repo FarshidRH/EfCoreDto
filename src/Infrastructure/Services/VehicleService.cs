@@ -67,7 +67,7 @@ public sealed class VehicleService(AppDbContext dbContext) : IVehicleService
 			return Result.Fail<OwnerDTO>(VehicleErrors.InvalidVin);
 		}
 
-		var vehicleProjection = await _dbContext.Set<Vehicle>()
+		var vehicleProjection = await _dbContext.Set<Vehicle>().AsSplitQuery()
 			.Where(x => x.VIN == validVIN!)
 			.Select(x => new { Vin = x.VIN, Owner = x.CurrentOwner })
 			.FirstOrDefaultAsync();
