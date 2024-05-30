@@ -16,9 +16,11 @@ public class Add : IEndpoint
 
 	public static async Task<Results<CreatedAtRoute<PersonDTO>, BadRequest<string>>> AddPersonAsync(
 		AddPersonRequest request,
-		IPersonService personService)
+		IPersonService personService,
+		CancellationToken cancellationToken /* only for testing of CancellationToken. */)
 	{
-		Result<PersonDTO> result = await personService.AddPersonAsync(request.FirstName, request.LastName);
+		Result<PersonDTO> result =
+			await personService.AddPersonAsync(request.FirstName, request.LastName, cancellationToken);
 
 		if (result.IsFailure)
 		{

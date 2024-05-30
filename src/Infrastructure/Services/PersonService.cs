@@ -4,13 +4,18 @@ public sealed class PersonService(AppDbContext dbContext) : IPersonService
 {
 	private readonly AppDbContext _dbContext = dbContext;
 
-	public async Task<Result<PersonDTO>> AddPersonAsync(string firstName, string lastName)
+	public async Task<Result<PersonDTO>> AddPersonAsync(
+		string firstName, string lastName, CancellationToken cancellationToken)
 	{
 		try
 		{
+			/* only for testing of CancellationToken.
+			//await Task.Delay(TimeSpan.FromSeconds(3), cancellationToken);
+			*/
+
 			var newPerson = Person.Create(firstName, lastName);
-			await _dbContext.AddAsync(newPerson);
-			await _dbContext.SaveChangesAsync();
+			await _dbContext.AddAsync(newPerson, cancellationToken);
+			await _dbContext.SaveChangesAsync(cancellationToken);
 
 			return Result.Success(newPerson.ToModel());
 		}
