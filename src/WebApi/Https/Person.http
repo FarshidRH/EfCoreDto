@@ -1,4 +1,3 @@
-@HostAddress = https://localhost:7073
 @Person_Id = 1
 
 # Get person.

@@ -43,7 +43,7 @@ indent_size = 2
 indent_size = 2
 
 # JSON Files
-[*.{json,json5,webmanifest}]
+[*.{json,json5,webmanifest,json.user}]
 indent_size = 2
 
 # YAML Files
@@ -529,7 +529,7 @@ dotnet_diagnostic.CA1700.severity = warning
 dotnet_code_quality.CA1700.api_surface = public, protected
 
 # Identifiers should not contain underscores
-dotnet_diagnostic.CA1707.severity = error
+dotnet_diagnostic.CA1707.severity = none
 dotnet_code_quality.CA1707.api_surface = public, protected
 
 # Identifiers should differ by more than case
