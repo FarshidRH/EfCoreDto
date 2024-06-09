@@ -33,7 +33,7 @@ public sealed class VehicleService(AppDbContext dbContext) : IVehicleService
 		}
 		catch (Exception exception)
 		{
-			return Result.Fail<VehicleDTO>(exception.Message);
+			return Result.Fail<VehicleDTO>(exception);
 		}
 	}
 
@@ -67,7 +67,9 @@ public sealed class VehicleService(AppDbContext dbContext) : IVehicleService
 			return Result.Fail<OwnerDTO>(VehicleErrors.InvalidVin);
 		}
 
-		var vehicleProjection = await _dbContext.Set<Vehicle>().AsSplitQuery()
+		var vehicleProjection = await _dbContext.Set<Vehicle>()
+			.TagWith("Get Current Owner By Vin").TagWithCallSite()
+			.AsSplitQuery()
 			.Where(x => x.VIN == validVIN!)
 			.Select(x => new { Vin = x.VIN, Owner = x.CurrentOwner })
 			.FirstOrDefaultAsync();
@@ -111,7 +113,7 @@ public sealed class VehicleService(AppDbContext dbContext) : IVehicleService
 		}
 		catch (Exception exception)
 		{
-			return Result.Fail<OwnerDTO>(exception.Message);
+			return Result.Fail<OwnerDTO>(exception);
 		}
 
 		return Result.Success(vehicle.CurrentOwner!.ToModel());

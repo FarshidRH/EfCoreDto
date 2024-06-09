@@ -14,7 +14,7 @@ public class SetAddress : IEndpoint
 			Description = "Add new address for person.",
 		});
 
-	public static async Task<Results<CreatedAtRoute<AddressDTO>, NotFound<string>>> SetPersonAddressAsync(
+	public static async Task<Results<CreatedAtRoute<AddressDTO>, ProblemHttpResult>> SetPersonAddressAsync(
 		int personId,
 		SetPersonAddressRequest addressRequest,
 		IPersonService personService)
@@ -30,7 +30,7 @@ public class SetAddress : IEndpoint
 
 		return result.IsSuccess
 			? TypedResults.CreatedAtRoute(result.Value(), GetAddress.EndpointName, new { personId })
-			: TypedResults.NotFound(result.Error);
+			: TypedResults.Problem(result.ToProblem());
 	}
 }
 

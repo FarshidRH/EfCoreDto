@@ -15,13 +15,13 @@ public class GetAddress : IEndpoint
 			Description = "Get all addresses of person.",
 		});
 
-	public static async Task<Results<Ok<AddressDTO[]>, NotFound<string>>> GetPersonAddressesAsync(
+	public static async Task<Results<Ok<AddressDTO[]>, ProblemHttpResult>> GetPersonAddressesAsync(
 		int personId, IPersonService personService)
 	{
 		Result<AddressDTO[]> result = await personService.GetPersonsAddressesAsync(personId);
 
 		return result.IsSuccess
 			? TypedResults.Ok(result.Value())
-			: TypedResults.NotFound(result.Error);
+			: TypedResults.Problem(result.ToProblem());
 	}
 }

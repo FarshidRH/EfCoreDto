@@ -14,7 +14,7 @@ public class Add : IEndpoint
 			Description = "Add new person.",
 		});
 
-	public static async Task<Results<CreatedAtRoute<PersonDTO>, BadRequest<string>>> AddPersonAsync(
+	public static async Task<Results<CreatedAtRoute<PersonDTO>, ProblemHttpResult>> AddPersonAsync(
 		AddPersonRequest request,
 		IPersonService personService,
 		CancellationToken cancellationToken /* only for testing of CancellationToken. */)
@@ -24,7 +24,7 @@ public class Add : IEndpoint
 
 		if (result.IsFailure)
 		{
-			return TypedResults.BadRequest(result.Error);
+			return TypedResults.Problem(result.ToProblem());
 		}
 
 		PersonDTO newPerson = result.Value()!;

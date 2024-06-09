@@ -15,13 +15,21 @@ public class GetByIdV2 : IEndpoint
 		})
 		.MapToApiVersion(Versions._2_0);
 
-	public static async Task<Results<Ok<VehicleDTO>, NotFound<string>>> GetVehicleByIdAsync(
+	public static async Task<Results<Ok<VehicleDTO>, ProblemHttpResult>> GetVehicleByIdAsync(
 		int id, IVehicleService vehicleService)
 	{
+		if (id < 0)
+		{
+			throw new ArgumentOutOfRangeException(nameof(id), "Vehicle's id must be greater than zero.");
+		}
+
 		Result<VehicleDTO> result = await vehicleService.GetVehicleByIdAsync(id);
 
-		return result.IsSuccess
-			? TypedResults.Ok(result.Value())
-			: TypedResults.NotFound(result.Error);
+		if (result.IsFailure)
+		{
+			throw new VehicleNotFoundException();
+		}
+
+		return TypedResults.Ok(result.Value());
 	}
 }

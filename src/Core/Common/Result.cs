@@ -2,16 +2,16 @@ namespace EfCoreDto.Core.Common;
 
 public class Result
 {
-	protected Result(bool isSuccess, string error)
+	protected Result(bool isSuccess, Error? error)
 	{
-		if (isSuccess && !string.IsNullOrWhiteSpace(error))
+		if (isSuccess && error != null)
 		{
-			throw new InvalidOperationException("A success result can not contain an error message.");
+			throw new InvalidOperationException("A success result can not contain an error.");
 		}
 
-		if (!isSuccess && string.IsNullOrWhiteSpace(error))
+		if (!isSuccess && error == null)
 		{
-			throw new InvalidOperationException("A failure result must contain an error message.");
+			throw new InvalidOperationException("A failure result must contain an error.");
 		}
 
 		this.IsSuccess = isSuccess;
@@ -22,19 +22,16 @@ public class Result
 
 	public bool IsFailure => !this.IsSuccess;
 
-	public string Error { get; }
+	public Error? Error { get; }
 
-	public static Result Success() => new(true, string.Empty);
+	public static Result Success() => new(true, null);
+	public static Result<TValue> Success<TValue>(TValue? value) where TValue : class => new(value, true, null);
 
-	public static Result<TValue> Success<TValue>(TValue? value)
-		where TValue : class
-		=> new(value, true, string.Empty);
+	public static Result Fail(Error error) => new(false, error);
+	public static Result<TValue> Fail<TValue>(Error error) where TValue : class => new(null, false, error);
 
-	public static Result Fail(string error) => new(false, error);
-
-	public static Result<TValue> Fail<TValue>(string error)
-		where TValue : class
-		=> new(null, false, error);
+	public static Result Fail(Exception exception) => Fail(exception.ToError());
+	public static Result<TValue> Fail<TValue>(Exception exception) where TValue : class => Fail<TValue>(exception.ToError());
 }
 
 public class Result<TValue> : Result
@@ -42,7 +39,7 @@ public class Result<TValue> : Result
 {
 	private readonly TValue? _value;
 
-	protected internal Result(TValue? value, bool isSuccess, string error)
+	protected internal Result(TValue? value, bool isSuccess, Error? error)
 		: base(isSuccess, error) => _value = value;
 
 	public TValue? Value()

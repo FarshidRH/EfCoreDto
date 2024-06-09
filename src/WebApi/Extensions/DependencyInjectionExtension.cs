@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using EfCoreDto.Infrastructure.Extensions;
+using EfCoreDto.WebApi.ExceptionHandlers;
 using EfCoreDto.WebApi.OpenApi;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -12,10 +13,25 @@ internal static class DependencyInjectionExtension
 		builder.AddInfrastructureServices();
 
 		IServiceCollection services = builder.Services;
+		services.AddProblemDetails();
+		services.AddExceptionHandlers();
 		services.AddSwaggerTools();
 		services.AddApiVersioning();
 		services.AddEndpoints();
 	}
+
+	private static void AddExceptionHandlers(this IServiceCollection services)
+	{
+		services.AddExceptionHandler<BaseExceptionHandler>();
+		services.AddExceptionHandler<GlobalExceptionHandler>();
+	}
+
+	private static void AddProblemDetails(this IServiceCollection services) =>
+		services.AddProblemDetails(config => config.CustomizeProblemDetails = context =>
+		{
+			context.ProblemDetails.Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
+			context.ProblemDetails.Extensions.Add("trace-id", context.HttpContext.TraceIdentifier);
+		});
 
 	private static void AddSwaggerTools(this IServiceCollection services)
 	{

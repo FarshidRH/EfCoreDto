@@ -4,4 +4,4 @@
 ### GitHub
 https://github.com/ChrisKlug/efcore-dto-demo
 ### Video
-https://www.youtube.com/watch?v=N_eLotlcjXo&t=2631s
+https://www.youtube.com/watch?v=N_eLotlcjXo

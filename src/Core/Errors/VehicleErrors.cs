@@ -2,9 +2,9 @@ namespace EfCoreDto.Core.Errors;
 
 public static class VehicleErrors
 {
-	public const string InvalidVin = "Invalid VIN.";
+	public static readonly Error InvalidVin = Error.Invalid("Invalid VIN.");
 
-	public const string DuplicateVin = "Duplicate VIN.";
+	public static readonly Error DuplicateVin = Error.Conflict("Duplicate VIN.");
 
-	public const string VehicleNotFound = "Vehicle not found.";
+	public static readonly Error VehicleNotFound = Error.NotFound("Vehicle not found.");
 }

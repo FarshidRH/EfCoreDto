@@ -14,13 +14,13 @@ public class GetById : IEndpoint
 			Description = "Get person by id.",
 		});
 
-	public static async Task<Results<Ok<PersonDTO>, NotFound<string>>> GetPersonByIdAsync(
+	public static async Task<Results<Ok<PersonDTO>, ProblemHttpResult>> GetPersonByIdAsync(
 		int id, IPersonService personService)
 	{
 		Result<PersonDTO> result = await personService.GetPersonByIdAsync(id);
 
 		return result.IsSuccess
 			? TypedResults.Ok(result.Value())
-			: TypedResults.NotFound(result.Error);
+			: TypedResults.Problem(result.ToProblem());
 	}
 }

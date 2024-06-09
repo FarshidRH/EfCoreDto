@@ -3,14 +3,10 @@
 # Get person.
 GET {{HostAddress}}/person/{{Person_Id}}
 
-###
+### Person not found.
+GET {{HostAddress}}/person/0
 
-# Person not found.
-GET {{HostAddress}}/person/100
-
-###
-
-# Add new perosn.
+### Add new perosn.
 POST {{HostAddress}}/person
 Content-Type: application/json
 
@@ -19,14 +15,10 @@ Content-Type: application/json
 	"lastName": "Rezaei"
 }
 
-###
-
-# Get all addresses of person
+### Get all addresses of person
 GET {{HostAddress}}/person/{{Person_Id}}/address
 
-###
-
-# Add new address for person
+### Add new address for person
 POST {{HostAddress}}/person/{{Person_Id}}/address
 Content-Type: application/json
 
@@ -38,5 +30,3 @@ Content-Type: application/json
   "city": "city1",
   "country": "country1"
 }
-
-###

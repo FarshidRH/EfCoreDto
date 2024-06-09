@@ -2,5 +2,5 @@ namespace EfCoreDto.Core.Errors;
 
 public static class AddressErrors
 {
-	public const string AddressTypeInUnknown = "Address type is unknown.";
+	public static readonly Error AddressTypeInUnknown = Error.Invalid("Address type is unknown.");
 }

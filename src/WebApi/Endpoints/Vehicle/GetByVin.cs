@@ -14,13 +14,13 @@ public class GetByVin : IEndpoint
 			Description = "Get vehicle by VIN.",
 		});
 
-	public static async Task<Results<Ok<VehicleDTO>, NotFound<string>>> GetVehicleByVinAsync(
+	public static async Task<Results<Ok<VehicleDTO>, ProblemHttpResult>> GetVehicleByVinAsync(
 		string vin, IVehicleService vehicleService)
 	{
 		Result<VehicleDTO> result = await vehicleService.GetVehicleByVinAsync(vin);
 
 		return result.IsSuccess
 			? TypedResults.Ok(result.Value())
-			: TypedResults.NotFound(result.Error);
+			: TypedResults.Problem(result.ToProblem());
 	}
 }

@@ -4,6 +4,8 @@ public static class MiddlewareExtension
 {
 	public static void ConfigureMiddlewares(this WebApplication app)
 	{
+		app.UseStatusCodePages();
+		app.UseExceptionHandler();
 		app.UseHttpsRedirection();
 		app.MapEndpoints();
 		app.UseSwaggerTools();

@@ -14,7 +14,7 @@ public class Add : IEndpoint
 			Description = "Add new vehicle.",
 		});
 
-	public static async Task<Results<CreatedAtRoute<VehicleDTO>, BadRequest<string>>> AddVehicleAsync(
+	public static async Task<Results<CreatedAtRoute<VehicleDTO>, ProblemHttpResult>> AddVehicleAsync(
 		AddVehicleRequest request,
 		IVehicleService vehicleService)
 	{
@@ -22,7 +22,7 @@ public class Add : IEndpoint
 
 		if (result.IsFailure)
 		{
-			return TypedResults.BadRequest(result.Error);
+			return TypedResults.Problem(result.ToProblem());
 		}
 
 		VehicleDTO newVehicle = result.Value()!;

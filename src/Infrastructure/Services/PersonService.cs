@@ -21,7 +21,7 @@ public sealed class PersonService(AppDbContext dbContext) : IPersonService
 		}
 		catch (Exception exception)
 		{
-			return Result.Fail<PersonDTO>(exception.Message);
+			return Result.Fail<PersonDTO>(exception);
 		}
 	}
 
@@ -77,7 +77,7 @@ public sealed class PersonService(AppDbContext dbContext) : IPersonService
 		}
 		catch (Exception exception)
 		{
-			return Result.Fail<AddressDTO>(exception.Message);
+			return Result.Fail<AddressDTO>(exception);
 		}
 	}
 }
