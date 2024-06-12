@@ -1,4 +1,5 @@
 global using EfCoreDto.Core.Common;
+global using EfCoreDto.Core.Constants;
 global using EfCoreDto.Core.DTOs;
 global using EfCoreDto.Core.Eums;
 global using EfCoreDto.Core.Exceptions;

@@ -1,14 +1,36 @@
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
 namespace EfCoreDto.WebApi.Extensions;
 
 public static class MiddlewareExtension
 {
 	public static void ConfigureMiddlewares(this WebApplication app)
 	{
-		app.UseStatusCodePages();
-		app.UseExceptionHandler();
 		app.UseHttpsRedirection();
+		app.UseHealthChecks();
+		app.UseExceptionHandler();
+		app.UseStatusCodePages();
 		app.MapEndpoints();
 		app.UseSwaggerTools();
+	}
+
+	private static void UseHealthChecks(this WebApplication app)
+	{
+		app.MapHealthChecks("/healthz",
+			new HealthCheckOptions
+			{
+				Predicate = _ => true,
+				ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+			})
+			/*.RequireAuthorization()*/;
+
+		app.UseHealthChecks("/hc-infra",
+			new HealthCheckOptions
+			{
+				Predicate = _ => _.Tags.Contains(HealthCheckTags.Infra),
+				ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+			});
 	}
 
 	private static void MapEndpoints(this WebApplication app)

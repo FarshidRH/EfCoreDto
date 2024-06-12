@@ -1,4 +1,3 @@
-using EfCoreDto.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,11 +15,19 @@ public static class DependencyInjectionExtension
 		builder.Services.AddScoped<IPersonService, PersonService>();
 	}
 
+	public static void AddInfrastructureHealthChecks(
+		this IHostApplicationBuilder host, IHealthChecksBuilder healthChecksBuilder)
+	{
+		string[] infraTags = [HealthCheckTags.Infra];
+		healthChecksBuilder.AddDbContextCheck<AppDbContext>(tags: infraTags);
+		healthChecksBuilder.AddSqlServer(host.GetSqlServerConnectionString(), tags: infraTags);
+	}
+
 	private static DbContextOptionsBuilder ConfigureDbContextOptions(
 		this DbContextOptionsBuilder dbContextOptions, IHostApplicationBuilder host)
 	{
 		dbContextOptions.UseSqlServer(
-			connectionString: host.Configuration.GetConnectionString("SqlServer"),
+			connectionString: host.GetSqlServerConnectionString(),
 			sqlServerOptionsBuilder => sqlServerOptionsBuilder.EnableRetryOnFailure());
 
 		if (host.Environment.IsDevelopment())
@@ -41,4 +48,8 @@ public static class DependencyInjectionExtension
 
 		return dbContextOptions;
 	}
+
+	private static string GetSqlServerConnectionString(this IHostApplicationBuilder host) =>
+		host.Configuration.GetConnectionString(ConfigurationKeys.SqlServer) ??
+		throw new InvalidOperationException($"Could not find a connection string named '{ConfigurationKeys.SqlServer}'.");
 }

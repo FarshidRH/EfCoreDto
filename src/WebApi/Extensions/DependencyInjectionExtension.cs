@@ -3,6 +3,7 @@ using EfCoreDto.Infrastructure.Extensions;
 using EfCoreDto.WebApi.ExceptionHandlers;
 using EfCoreDto.WebApi.OpenApi;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace EfCoreDto.WebApi.Extensions;
 
@@ -10,11 +11,11 @@ internal static class DependencyInjectionExtension
 {
 	public static void AddWebApiServices(this IHostApplicationBuilder builder)
 	{
-		builder.AddInfrastructureServices();
-
 		IServiceCollection services = builder.Services;
+		builder.AddInfrastructureServices();
 		services.AddProblemDetails();
 		services.AddExceptionHandlers();
+		builder.AddHealthChecks();
 		services.AddSwaggerTools();
 		services.AddApiVersioning();
 		services.AddEndpoints();
@@ -32,6 +33,13 @@ internal static class DependencyInjectionExtension
 			context.ProblemDetails.Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}";
 			context.ProblemDetails.Extensions.Add("trace-id", context.HttpContext.TraceIdentifier);
 		});
+
+	private static void AddHealthChecks(this IHostApplicationBuilder builder)
+	{
+		IHealthChecksBuilder healthChecksBuilder = builder.Services.AddHealthChecks();
+		healthChecksBuilder.AddCheck("self", () => HealthCheckResult.Healthy(), [HealthCheckTags.Api]);
+		builder.AddInfrastructureHealthChecks(healthChecksBuilder);
+	}
 
 	private static void AddSwaggerTools(this IServiceCollection services)
 	{
