@@ -1,3 +1,4 @@
+using System.Reflection;
 using Asp.Versioning;
 using EfCoreDto.Infrastructure.Extensions;
 using EfCoreDto.WebApi.ExceptionHandlers;
@@ -12,13 +13,16 @@ internal static class DependencyInjectionExtension
 	public static void AddWebApiServices(this IHostApplicationBuilder builder)
 	{
 		IServiceCollection services = builder.Services;
+		Assembly assembly = typeof(Program).Assembly;
+
 		builder.AddInfrastructureServices();
 		services.AddProblemDetails();
 		services.AddExceptionHandlers();
 		builder.AddHealthChecks();
 		services.AddSwaggerTools();
 		services.AddApiVersioning();
-		services.AddEndpoints();
+		services.AddEndpoints(assembly);
+		services.AddValidators(assembly);
 	}
 
 	private static void AddExceptionHandlers(this IServiceCollection services)
@@ -45,7 +49,7 @@ internal static class DependencyInjectionExtension
 	{
 		services.AddEndpointsApiExplorer();
 		services.AddSwaggerGen();
-		services.ConfigureOptions<ConfigureSwaggerGetOptions>();
+		services.ConfigureOptions<ConfigureSwaggerGenOptions>();
 	}
 
 	private static void AddApiVersioning(this IServiceCollection services)
@@ -64,14 +68,19 @@ internal static class DependencyInjectionExtension
 		});
 	}
 
-	private static void AddEndpoints(this IServiceCollection services)
+	private static void AddEndpoints(this IServiceCollection services, Assembly assembly)
 	{
-		ServiceDescriptor[] serviceDescriptors = typeof(Program).Assembly
+		ServiceDescriptor[] serviceDescriptors = assembly
 			.DefinedTypes
 			.Where(type => type is { IsAbstract: false, IsInterface: false } && type.IsAssignableTo(typeof(IEndpointBase)))
 			.Select(type => ServiceDescriptor.Transient(typeof(IEndpointBase), type))
 			.ToArray();
 
 		services.TryAddEnumerable(serviceDescriptors);
+	}
+
+	private static void AddValidators(this IServiceCollection services, Assembly assembly)
+	{
+		services.AddValidatorsFromAssembly(assembly);
 	}
 }

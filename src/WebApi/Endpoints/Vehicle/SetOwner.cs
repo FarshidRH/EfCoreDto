@@ -14,7 +14,7 @@ public class SetOwner : IEndpoint
 			Description = "Add new owner for vehicle.",
 		});
 
-	public static async Task<Results<CreatedAtRoute<OwnerDTO>, ProblemHttpResult>> SetCurrentOwnerAsync(
+	public static async Task<Results<CreatedAtRoute<OwnerDTO>, IResult>> SetCurrentOwnerAsync(
 		string vin, int personId, IVehicleService vehicleService)
 	{
 		Result<OwnerDTO> result = await vehicleService.SetCurrentOwnerAsync(vin, personId);

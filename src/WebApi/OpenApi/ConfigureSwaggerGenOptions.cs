@@ -4,7 +4,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace EfCoreDto.WebApi.OpenApi;
 
-public class ConfigureSwaggerGetOptions(IApiVersionDescriptionProvider provider)
+public class ConfigureSwaggerGenOptions(IApiVersionDescriptionProvider provider)
 	: IConfigureNamedOptions<SwaggerGenOptions>
 {
 	private readonly IApiVersionDescriptionProvider _provider = provider;

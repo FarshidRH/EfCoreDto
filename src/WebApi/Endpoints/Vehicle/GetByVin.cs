@@ -14,7 +14,7 @@ public class GetByVin : IEndpoint
 			Description = "Get vehicle by VIN.",
 		});
 
-	public static async Task<Results<Ok<VehicleDTO>, ProblemHttpResult>> GetVehicleByVinAsync(
+	public static async Task<Results<Ok<VehicleDTO>, IResult>> GetVehicleByVinAsync(
 		string vin, IVehicleService vehicleService)
 	{
 		Result<VehicleDTO> result = await vehicleService.GetVehicleByVinAsync(vin);

@@ -12,9 +12,9 @@ public class GlobalExceptionHandler(IProblemDetailsService problemDetailsService
 			HttpContext = httpContext,
 			ProblemDetails = new ProblemDetails
 			{
-				Title = exception.GetType().Name,
 				Status = Status500InternalServerError,
-				Detail = exception.Message,
+				Detail = exception.GetType().Name,
+				Extensions = { { "errors", (string[])[exception.Message] }, },
 			},
 			Exception = exception,
 		});

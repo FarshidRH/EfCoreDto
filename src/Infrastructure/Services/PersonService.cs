@@ -1,6 +1,6 @@
 namespace EfCoreDto.Infrastructure.Services;
 
-public sealed class PersonService(AppDbContext dbContext) : IPersonService
+internal sealed class PersonService(AppDbContext dbContext) : IPersonService
 {
 	private readonly AppDbContext _dbContext = dbContext;
 
@@ -47,7 +47,7 @@ public sealed class PersonService(AppDbContext dbContext) : IPersonService
 		int personId,
 		AddressType addressType,
 		string addressLine1,
-		string addressLine2,
+		string? addressLine2,
 		string postalCode,
 		string city,
 		string country)

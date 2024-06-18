@@ -1,4 +1,3 @@
-
 namespace EfCoreDto.WebApi.Endpoints.Person;
 
 public class GetAddress : IEndpoint
@@ -15,7 +14,7 @@ public class GetAddress : IEndpoint
 			Description = "Get all addresses of person.",
 		});
 
-	public static async Task<Results<Ok<AddressDTO[]>, ProblemHttpResult>> GetPersonAddressesAsync(
+	public static async Task<Results<Ok<AddressDTO[]>, IResult>> GetPersonAddressesAsync(
 		int personId, IPersonService personService)
 	{
 		Result<AddressDTO[]> result = await personService.GetPersonsAddressesAsync(personId);

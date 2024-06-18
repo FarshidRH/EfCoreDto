@@ -12,15 +12,15 @@ public sealed class Person : IHaveId<int>
 
 	public Address[] GetAllAddresses() => [.. _addresses];
 
-	public Address SetDeliveryAddress(string addressLine1, string addressLine2, string postalCode, string city, string country)
+	public Address SetDeliveryAddress(string addressLine1, string? addressLine2, string postalCode, string city, string country)
 		=> this.SetAddress<DeliveryAddress>(addressLine1, addressLine2, postalCode, city, country);
 
-	public Address SetInvoiceAddress(string addressLine1, string addressLine2, string postalCode, string city, string country)
+	public Address SetInvoiceAddress(string addressLine1, string? addressLine2, string postalCode, string city, string country)
 		=> this.SetAddress<InvoiceAddress>(addressLine1, addressLine2, postalCode, city, country);
 
 	private T SetAddress<T>(
 		string addressLine1,
-		string addressLine2,
+		string? addressLine2,
 		string postalCode,
 		string city,
 		string country) where T : Address, new()

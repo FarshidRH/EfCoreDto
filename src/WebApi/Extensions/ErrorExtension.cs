@@ -4,8 +4,8 @@ public static class ErrorExtension
 {
 	public static ProblemDetails ToProblem(this Error error) => new()
 	{
-		Detail = error.Detail,
 		Status = error.ToStatusCode(),
+		Extensions = { { "errors", (string[])[error.Message] } },
 	};
 
 	public static int ToStatusCode(this Error error) => error.Type switch

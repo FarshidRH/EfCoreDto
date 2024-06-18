@@ -14,7 +14,7 @@ public class GetOwner : IEndpoint
 			Description = "Get vehicle's current owner by VIN.",
 		});
 
-	public static async Task<Results<Ok<OwnerDTO>, ProblemHttpResult>> GetCurrentOwnerByVinAsync(
+	public static async Task<Results<Ok<OwnerDTO>, IResult>> GetCurrentOwnerByVinAsync(
 		string vin, IVehicleService vehicleService)
 	{
 		Result<OwnerDTO> result = await vehicleService.GetCurrentOwnerByVinAsync(vin);

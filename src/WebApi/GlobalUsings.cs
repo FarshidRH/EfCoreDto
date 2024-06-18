@@ -6,6 +6,8 @@ global using EfCoreDto.Core.Exceptions;
 global using EfCoreDto.Core.Services;
 global using EfCoreDto.WebApi.Endpoints;
 global using EfCoreDto.WebApi.Extensions;
+global using EfCoreDto.WebApi.Requests;
+global using FluentValidation;
 global using Microsoft.AspNetCore.Http.HttpResults;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.Extensions.Options;

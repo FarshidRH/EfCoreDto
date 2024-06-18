@@ -15,7 +15,7 @@ public interface IPersonService
 		int personId,
 		AddressType addressType,
 		string addressLine1,
-		string addressLine2,
+		string? addressLine2,
 		string postalCode,
 		string city,
 		string country);

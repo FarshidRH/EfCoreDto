@@ -14,11 +14,18 @@ public class Add : IEndpoint
 			Description = "Add new person.",
 		});
 
-	public static async Task<Results<CreatedAtRoute<PersonDTO>, ProblemHttpResult>> AddPersonAsync(
+	public static async Task<Results<CreatedAtRoute<PersonDTO>, IResult>> AddPersonAsync(
 		AddPersonRequest request,
+		IValidator<AddPersonRequest> validator,
 		IPersonService personService,
 		CancellationToken cancellationToken /* only for testing of CancellationToken. */)
 	{
+		var validationResult = await validator.ValidateAsync(request, cancellationToken);
+		if (!validationResult.IsValid)
+		{
+			return TypedResults.ValidationProblem(validationResult.ToDictionary());
+		}
+
 		Result<PersonDTO> result =
 			await personService.AddPersonAsync(request.FirstName, request.LastName, cancellationToken);
 
@@ -31,5 +38,3 @@ public class Add : IEndpoint
 		return TypedResults.CreatedAtRoute(newPerson, GetById.EndpointName, new { id = newPerson.Id });
 	}
 }
-
-public record AddPersonRequest(string FirstName, string LastName);

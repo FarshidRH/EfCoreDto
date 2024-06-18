@@ -14,11 +14,18 @@ public class SetAddress : IEndpoint
 			Description = "Add new address for person.",
 		});
 
-	public static async Task<Results<CreatedAtRoute<AddressDTO>, ProblemHttpResult>> SetPersonAddressAsync(
+	public static async Task<Results<CreatedAtRoute<AddressDTO>, IResult>> SetPersonAddressAsync(
 		int personId,
 		SetPersonAddressRequest addressRequest,
+		IValidator<SetPersonAddressRequest> validator,
 		IPersonService personService)
 	{
+		var validationResult = await validator.ValidateAsync(addressRequest);
+		if (!validationResult.IsValid)
+		{
+			return TypedResults.ValidationProblem(validationResult.ToDictionary());
+		}
+
 		Result<AddressDTO> result = await personService.SetPersonsAddressAsync(
 			personId,
 			addressRequest.Type,
@@ -34,10 +41,3 @@ public class SetAddress : IEndpoint
 	}
 }
 
-public record SetPersonAddressRequest(
-	AddressType Type,
-	string AddressLine1,
-	string AddressLine2,
-	string PostalCode,
-	string City,
-	string Country);

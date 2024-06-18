@@ -1,6 +1,6 @@
 namespace EfCoreDto.Infrastructure.Extensions;
 
-public static class AppDbContextExtension
+internal static class AppDbContextExtension
 {
 	public static async Task<Person?> PersonWithIdAsync(this AppDbContext dbContext, int id, bool asNoTracking = false)
 	{

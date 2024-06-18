@@ -14,7 +14,7 @@ public class GetById : IEndpoint
 			Description = "Get vehicle by id.",
 		});
 
-	public static async Task<Results<Ok<VehicleDTO>, ProblemHttpResult>> GetVehicleByIdAsync(
+	public static async Task<Results<Ok<VehicleDTO>, IResult>> GetVehicleByIdAsync(
 		int id, IVehicleService vehicleService)
 	{
 		Result<VehicleDTO> result = await vehicleService.GetVehicleByIdAsync(id);

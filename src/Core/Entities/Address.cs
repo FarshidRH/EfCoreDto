@@ -5,7 +5,7 @@ public abstract class Address
 	protected Address() { }
 
 	public static T Create<T>(
-		string addresssLine1, string addressLine2,
+		string addresssLine1, string? addressLine2,
 		string postalCode, string city, string country,
 		bool isCurrent) where T : Address, new()
 	{

@@ -15,7 +15,7 @@ public class GetByIdV2 : IEndpoint
 		})
 		.MapToApiVersion(Versions._2_0);
 
-	public static async Task<Results<Ok<VehicleDTO>, ProblemHttpResult>> GetVehicleByIdAsync(
+	public static async Task<Results<Ok<VehicleDTO>, IResult>> GetVehicleByIdAsync(
 		int id, IVehicleService vehicleService)
 	{
 		if (id < 0)

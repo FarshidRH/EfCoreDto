@@ -3,7 +3,7 @@ namespace EfCoreDto.Core.Exceptions;
 public abstract class BaseException : Exception
 {
 	protected BaseException(Error error)
-		: this(message: error?.Detail)
+		: this(message: error?.Message)
 		=> this.Error = error ?? throw new ArgumentNullException(nameof(error));
 
 	private BaseException()

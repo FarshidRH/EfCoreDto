@@ -6,7 +6,8 @@ public sealed class Owner
 
 	private Owner() { }
 
-	private Owner(Person person) => _person = person;
+	private Owner(Person person) =>
+		_person = person ?? throw new ArgumentNullException(nameof(person));
 
 	public static Owner Create(Person person) => new(person);
 
