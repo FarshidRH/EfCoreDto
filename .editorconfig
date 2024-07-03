@@ -703,7 +703,7 @@ dotnet_diagnostic.CA1846.severity = warning
 dotnet_diagnostic.CA1847.severity = error
 
 # Use the LoggerMessage delegates  ****!
-dotnet_diagnostic.CA1848.severity = warning
+dotnet_diagnostic.CA1848.severity = none
 
 # Call async methods when in an async method ****
 dotnet_diagnostic.CA1849.severity = error
@@ -2033,14 +2033,14 @@ dotnet_diagnostic.CA1200.severity = suggestion
 #### Globalization Rules ####
 
 # Do not pass literals as localized parameters
-dotnet_diagnostic.CA1303.severity = suggestion
+dotnet_diagnostic.CA1303.severity = none
 dotnet_code_quality.CA1303.use_naming_heuristic = true
 
 # Specify CultureInfo
 dotnet_diagnostic.CA1304.severity = error
 
 # Specify IFormatProvider
-dotnet_diagnostic.CA1305.severity = error
+dotnet_diagnostic.CA1305.severity = silent
 
 # Specify StringComparison for clarity
 dotnet_diagnostic.CA1307.severity = error

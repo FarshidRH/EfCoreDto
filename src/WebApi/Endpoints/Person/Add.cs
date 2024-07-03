@@ -18,12 +18,17 @@ public class Add : IEndpoint
 		AddPersonRequest request,
 		IValidator<AddPersonRequest> validator,
 		IPersonService personService,
+		ILogger<Add> logger,
 		CancellationToken cancellationToken /* only for testing of CancellationToken. */)
 	{
+		logger.LogInformation("Processing request {ReaquestName}", EndpointName);
+
 		var validationResult = await validator.ValidateAsync(request, cancellationToken);
 		if (!validationResult.IsValid)
 		{
-			return TypedResults.ValidationProblem(validationResult.ToDictionary());
+			var validationErrors = validationResult.ToDictionary();
+			logger.LogError("Invalid request {RequestName} {@Error}", EndpointName, validationErrors);
+			return TypedResults.ValidationProblem(validationErrors);
 		}
 
 		Result<PersonDTO> result =
@@ -31,9 +36,14 @@ public class Add : IEndpoint
 
 		if (result.IsFailure)
 		{
+			using (LogContext.PushProperty("Error", result.Error, true))
+			{
+				logger.LogError("Completed request {RequestName} with error", EndpointName);
+			}
 			return TypedResults.Problem(result.ToProblem());
 		}
 
+		logger.LogInformation("Completed request {ReaquestName}", EndpointName);
 		PersonDTO newPerson = result.Value()!;
 		return TypedResults.CreatedAtRoute(newPerson, GetById.EndpointName, new { id = newPerson.Id });
 	}

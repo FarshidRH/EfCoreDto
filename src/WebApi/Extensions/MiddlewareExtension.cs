@@ -8,6 +8,7 @@ public static class MiddlewareExtension
 	public static void ConfigureMiddlewares(this WebApplication app)
 	{
 		app.UseHttpsRedirection();
+		//app.UseSerilogRequestLogging(); /* SerilogTracing used instead. */
 		app.UseHealthChecks();
 		app.UseExceptionHandler();
 		app.UseStatusCodePages();

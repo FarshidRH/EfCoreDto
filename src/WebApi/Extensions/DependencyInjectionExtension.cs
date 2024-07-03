@@ -5,16 +5,20 @@ using EfCoreDto.WebApi.ExceptionHandlers;
 using EfCoreDto.WebApi.OpenApi;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Serilog;
+using Serilog.Templates.Themes;
+using SerilogTracing.Expressions;
 
 namespace EfCoreDto.WebApi.Extensions;
 
 internal static class DependencyInjectionExtension
 {
-	public static void AddWebApiServices(this IHostApplicationBuilder builder)
+	public static void AddWebApiServices(this WebApplicationBuilder builder)
 	{
 		IServiceCollection services = builder.Services;
 		Assembly assembly = typeof(Program).Assembly;
 
+		builder.AddSerilog();
 		builder.AddInfrastructureServices();
 		services.AddProblemDetails();
 		services.AddExceptionHandlers();
@@ -24,6 +28,14 @@ internal static class DependencyInjectionExtension
 		services.AddEndpoints(assembly);
 		services.AddValidators(assembly);
 	}
+
+	private static void AddSerilog(this WebApplicationBuilder builder) =>
+		builder.Host.UseSerilog((hostBuilderContext, loggerConfiguration) =>
+		{
+			loggerConfiguration.Enrich.WithProperty("Application", "EfCoreDto");
+			loggerConfiguration.WriteTo.Console(Formatters.CreateConsoleTextFormatter(TemplateTheme.Code));
+			loggerConfiguration.ReadFrom.Configuration(hostBuilderContext.Configuration);
+		});
 
 	private static void AddExceptionHandlers(this IServiceCollection services)
 	{
@@ -38,7 +50,7 @@ internal static class DependencyInjectionExtension
 			context.ProblemDetails.Extensions.Add("trace-id", context.HttpContext.TraceIdentifier);
 		});
 
-	private static void AddHealthChecks(this IHostApplicationBuilder builder)
+	private static void AddHealthChecks(this WebApplicationBuilder builder)
 	{
 		IHealthChecksBuilder healthChecksBuilder = builder.Services.AddHealthChecks();
 		healthChecksBuilder.AddCheck("self", () => HealthCheckResult.Healthy(), [HealthCheckTags.Api]);

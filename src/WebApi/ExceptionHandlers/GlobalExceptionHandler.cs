@@ -2,12 +2,18 @@ using Microsoft.AspNetCore.Diagnostics;
 
 namespace EfCoreDto.WebApi.ExceptionHandlers;
 
-public class GlobalExceptionHandler(IProblemDetailsService problemDetailsService) : IExceptionHandler
+public class GlobalExceptionHandler(
+	IProblemDetailsService problemDetailsService,
+	ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {
 	private readonly IProblemDetailsService _problemDetailsService = problemDetailsService;
+	private readonly ILogger<GlobalExceptionHandler> _logger = logger;
 
-	public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken) =>
-		await _problemDetailsService.TryWriteAsync(new ProblemDetailsContext
+	public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
+	{
+		_logger.LogError(exception, "Exception occured: {Message}", exception.Message);
+
+		return await _problemDetailsService.TryWriteAsync(new ProblemDetailsContext
 		{
 			HttpContext = httpContext,
 			ProblemDetails = new ProblemDetails
@@ -18,4 +24,5 @@ public class GlobalExceptionHandler(IProblemDetailsService problemDetailsService
 			},
 			Exception = exception,
 		});
+	}
 }
