@@ -1,8 +1,8 @@
 namespace EfCoreDto.WebApi.Validators;
 
-public class SetPersonAddressValidator : AbstractValidator<SetPersonAddressRequest>
+public class SetPersonAddressRequestValidator : AbstractValidator<SetPersonAddressRequest>
 {
-	public SetPersonAddressValidator()
+	public SetPersonAddressRequestValidator()
 	{
 		RuleFor(x => x.AddressLine1).NotEmpty();
 

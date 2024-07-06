@@ -1,8 +1,8 @@
 namespace EfCoreDto.WebApi.Validators;
 
-public class AddPersonValidator : AbstractValidator<AddPersonRequest>
+public class AddPersonCommandValidator : AbstractValidator<AddPersonCommand>
 {
-	public AddPersonValidator()
+	public AddPersonCommandValidator()
 	{
 		RuleFor(x => x.FirstName).NotEmpty().MaximumLength(128);
 

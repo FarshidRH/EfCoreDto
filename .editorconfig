@@ -2326,7 +2326,7 @@ csharp_style_unused_value_expression_statement_preference = discard_variable:sil
 dotnet_diagnostic.IDE0001.severity = warning
 
 # Simplify member access
-dotnet_diagnostic.IDE0002.severity = warning
+dotnet_diagnostic.IDE0002.severity = none
 
 # Remove unnecessary cast
 dotnet_diagnostic.IDE0004.severity = error

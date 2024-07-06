@@ -5,4 +5,8 @@
     <RootNamespace>EfCoreDto.Core</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR.Contracts" />
+  </ItemGroup>
+
 </Project>

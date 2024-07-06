@@ -6,3 +6,4 @@ global using EfCoreDto.Core.Eums;
 global using EfCoreDto.Core.Exceptions;
 global using EfCoreDto.Core.Extensions;
 global using EfCoreDto.Core.ValueObjects;
+global using MediatR;

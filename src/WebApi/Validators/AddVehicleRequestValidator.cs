@@ -1,8 +1,8 @@
 namespace EfCoreDto.WebApi.Validators;
 
-public class AddVehicleValidator : AbstractValidator<AddVehicleRequest>
+public class AddVehicleRequestValidator : AbstractValidator<AddVehicleRequest>
 {
-	public AddVehicleValidator()
+	public AddVehicleRequestValidator()
 	{
 		RuleFor(x => x.Vin).NotEmpty();
 

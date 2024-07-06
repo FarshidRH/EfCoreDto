@@ -9,20 +9,26 @@ public class BaseExceptionHandler(
 	private readonly IProblemDetailsService _problemDetailsService = problemDetailsService;
 	private readonly ILogger<BaseExceptionHandler> _logger = logger;
 
-	public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
+	public async ValueTask<bool> TryHandleAsync(
+		HttpContext httpContext,
+		Exception exception,
+		CancellationToken cancellationToken)
 	{
 		if (exception is not BaseException baseException)
 		{
 			return false;
 		}
 
-		_logger.LogError(exception, "Exception occured {@Message}", baseException.Error);
+		_logger.LogError("Error occured {@Error}", baseException.Error);
+
+		ProblemDetails problemDetails = baseException.Error.ToProblem();
+		httpContext.Response.StatusCode = problemDetails.Status!.Value;
 
 		return await _problemDetailsService.TryWriteAsync(new ProblemDetailsContext
 		{
 			HttpContext = httpContext,
-			ProblemDetails = baseException.Error.ToProblem(),
-			Exception = exception,
+			ProblemDetails = problemDetails,
+			Exception = baseException,
 		});
 	}
 }

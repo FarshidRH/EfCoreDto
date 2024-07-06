@@ -1,6 +1,6 @@
-using System.Reflection;
 using Asp.Versioning;
 using EfCoreDto.Infrastructure.Extensions;
+using EfCoreDto.WebApi.Behaviors;
 using EfCoreDto.WebApi.ExceptionHandlers;
 using EfCoreDto.WebApi.OpenApi;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -15,18 +15,16 @@ internal static class DependencyInjectionExtension
 {
 	public static void AddWebApiServices(this WebApplicationBuilder builder)
 	{
-		IServiceCollection services = builder.Services;
-		Assembly assembly = typeof(Program).Assembly;
-
 		builder.AddSerilog();
 		builder.AddInfrastructureServices();
-		services.AddProblemDetails();
-		services.AddExceptionHandlers();
+		builder.Services.AddProblemDetails();
+		builder.Services.AddExceptionHandlers();
 		builder.AddHealthChecks();
-		services.AddSwaggerTools();
-		services.AddApiVersioning();
-		services.AddEndpoints(assembly);
-		services.AddValidators(assembly);
+		builder.Services.AddSwaggerTools();
+		builder.Services.AddApiVersioning();
+		builder.Services.AddEndpoints();
+		builder.Services.AddMediatR();
+		builder.Services.AddValidators();
 	}
 
 	private static void AddSerilog(this WebApplicationBuilder builder) =>
@@ -40,6 +38,7 @@ internal static class DependencyInjectionExtension
 	private static void AddExceptionHandlers(this IServiceCollection services)
 	{
 		services.AddExceptionHandler<BaseExceptionHandler>();
+		services.AddExceptionHandler<ValidationExceptionHandler>();
 		services.AddExceptionHandler<GlobalExceptionHandler>();
 	}
 
@@ -80,9 +79,9 @@ internal static class DependencyInjectionExtension
 		});
 	}
 
-	private static void AddEndpoints(this IServiceCollection services, Assembly assembly)
+	private static void AddEndpoints(this IServiceCollection services)
 	{
-		ServiceDescriptor[] serviceDescriptors = assembly
+		ServiceDescriptor[] serviceDescriptors = EfCoreDto.WebApi.AssemblyReference.Assembly
 			.DefinedTypes
 			.Where(type => type is { IsAbstract: false, IsInterface: false } && type.IsAssignableTo(typeof(IEndpointBase)))
 			.Select(type => ServiceDescriptor.Transient(typeof(IEndpointBase), type))
@@ -91,8 +90,14 @@ internal static class DependencyInjectionExtension
 		services.TryAddEnumerable(serviceDescriptors);
 	}
 
-	private static void AddValidators(this IServiceCollection services, Assembly assembly)
-	{
-		services.AddValidatorsFromAssembly(assembly);
-	}
+	private static void AddMediatR(this IServiceCollection services) =>
+		services.AddMediatR(config =>
+		{
+			config.RegisterServicesFromAssemblies(EfCoreDto.Infrastructure.AssemblyReference.Assembly);
+			config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+			config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+		});
+
+	private static void AddValidators(this IServiceCollection services) =>
+		services.AddValidatorsFromAssemblies([EfCoreDto.WebApi.AssemblyReference.Assembly]);
 }
