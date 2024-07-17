@@ -6,7 +6,9 @@ internal sealed class AppDbContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+		modelBuilder.ApplyConfigurationsFromAssembly(
+			EfCoreDto.Infrastructure.AssemblyReference.Assembly);
+
 		base.OnModelCreating(modelBuilder);
 	}
 }

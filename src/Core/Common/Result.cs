@@ -40,15 +40,10 @@ public class Result<TValue> : Result
 	private readonly TValue? _value;
 
 	protected internal Result(TValue? value, bool isSuccess, Error? error)
-		: base(isSuccess, error) => _value = value;
+		: base(isSuccess, error) =>
+		_value = value;
 
-	public TValue? Value()
-	{
-		if (this.IsFailure)
-		{
-			throw new InvalidOperationException("Can not access the value of a failure result.");
-		}
-
-		return _value;
-	}
+	public TValue? Value() => this.IsSuccess
+			? _value
+			: throw new InvalidOperationException("The value of a failure result can not be accessed.");
 }
